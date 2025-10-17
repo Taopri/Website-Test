@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canva Design Tester</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --light: #f8f9fa;
+            --dark: #333;
+            --gray: #888;
+            --white: #ffffff;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .logo i {
+            font-size: 28px;
+            color: var(--primary);
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            color: var(--dark);
+        }
+
+        .nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: var(--light);
+            flex: 1;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .nav a.active, .nav a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2 i {
+            color: var(--primary);
+        }
+
+        /* Upload Section */
+        .design-preview {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .design-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #e0e0e0, #f5f5f5);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--gray);
+            margin-bottom: 15px;
+            border: 2px dashed #ccc;
+        }
+
+        .design-placeholder i {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+            margin: 5px 0;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border-radius: 8px;
+            background: var(--light);
+        }
+
+        .feature i {
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 10px 15px;
+            background: var(--light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Design Grid */
+        .design-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .design-item {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .design-item:hover {
+            transform: scale(1.03);
+            box-shadow: var(--shadow);
+        }
+
+        .design-thumbnail {
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(45deg, #e0e0e0, #f5f5f5);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--gray);
+        }
+
+        /* Login Form */
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            max-width: 400px;
+            margin: 50px auto;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .login-header h1 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: var(--gray);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
+            outline: none;
+        }
+
+        /* User Info */
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            opacity: 0.8;
+            padding: 15px;
+        }
+
+        /* Mobile Responsive */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 1200px;
+            }
+            
+            .nav a {
+                flex: none;
+            }
+            
+            .btn {
+                width: auto;
+            }
+            
+            .design-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Hidden elements for login state */
+        .logged-in { display: none; }
+        .logged-out { display: block; }
+        
+        body.logged-in .logged-in { display: block; }
+        body.logged-in .logged-out { display: none; }
+    </style>
+</head>
+<body class="logged-out">
+    <div class="container">
+        <!-- Login Screen (shown when not logged in) -->
+        <div class="logged-out">
+            <div class="login-container">
+                <div class="login-header">
+                    <div class="logo">
+                        <i class="fas fa-palette"></i>
+                        <h1>Canva Design Tester</h1>
+                    </div>
+                    <p>Sign in to test your Canva designs</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter your password">
+                </div>
+                
+                <button class="btn" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+                
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="#" style="color: var(--primary); text-decoration: none;">
+                        Create an account
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main App (shown when logged in) -->
+        <div class="logged-in">
+            <div class="header">
+                <div class="logo">
+                    <i class="fas fa-palette"></i>
+                    <h1>Canva Design Tester</h1>
+                </div>
+                <div class="nav">
+                    <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
+                    <a href="#"><i class="fas fa-upload"></i> Upload</a>
+                    <a href="#"><i class="fas fa-history"></i> History</a>
+                    <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar">JD</div>
+                    <span>John Doe</span>
+                    <button class="btn btn-outline" id="logoutBtn" style="width: auto; margin: 0 0 0 10px; padding: 8px 12px;">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-cloud-upload-alt"></i> Upload Design</h2>
+                <p>Upload your Canva designs to test them in a real browser environment.</p>
+                <div class="design-preview">
+                    <div class="design-placeholder">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div>Drag & Drop your design here</div>
+                    </div>
+                    <button class="btn"><i class="fas fa-folder-open"></i> Choose File</button>
+                    <button class="btn btn-outline"><i class="fas fa-link"></i> Import from Canva</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-tachometer-alt"></i> Quick Actions</h2>
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Responsive Test</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-paint-brush"></i>
+                        <span>Color Check</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-text-height"></i>
+                        <span>Font Tester</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-link"></i>
+                        <span>Link Checker</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-star"></i> Featured Designs</h2>
+                <div class="tabs">
+                    <div class="tab active">All Designs</div>
+                    <div class="tab">Web Pages</div>
+                    <div class="tab">Social Media</div>
+                    <div class="tab">Presentations</div>
+                </div>
+                <div class="design-grid">
+                    <div class="design-item">
+                        <div class="design-thumbnail">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div>Landing Page</div>
+                    </div>
+                    <div class="design-item">
+                        <div class="design-thumbnail">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <div>Instagram Post</div>
+                    </div>
+                    <div class="design-item">
+                        <div class="design-thumbnail">
+                            <i class="fas fa-file-powerpoint"></i>
+                        </div>
+                        <div>Business Deck</div>
+                    </div>
+                    <div class="design-item">
+                        <div class="design-thumbnail">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div>Newsletter</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-rocket"></i> Test Your Design</h2>
+                <p>Once you've uploaded your design, use the tools below to test it across different devices and scenarios.</p>
+                
+                <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
+                    <button class="btn" style="width: auto;"><i class="fas fa-desktop"></i> Desktop</button>
+                    <button class="btn" style="width: auto;"><i class="fas fa-tablet-alt"></i> Tablet</button>
+                    <button class="btn" style="width: auto;"><i class="fas fa-mobile-alt"></i> Mobile</button>
+                    <button class="btn btn-outline" style="width: auto;"><i class="fas fa-share-alt"></i> Share</button>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>Canva Design Tester &copy; 2023 | Test your Canva designs in real-time</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Login functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginBtn = document.getElementById('loginBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            
+            // Login function
+            loginBtn.addEventListener('click', function() {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                if (email && password) {
+                    // Simple login - in real app, you'd verify credentials
+                    document.body.classList.remove('logged-out');
+                    document.body.classList.add('logged-in');
+                } else {
+                    alert('Please enter both email and password');
+                }
+            });
+            
+            // Logout function
+            logoutBtn.addEventListener('click', function() {
+                document.body.classList.remove('logged-in');
+                document.body.classList.add('logged-out');
+            });
+            
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Design item click
+            const designItems = document.querySelectorAll('.design-item');
+            designItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    alert('Design opened in preview mode. Use the test buttons to check responsiveness.');
+                });
+            });
+
+            // Upload button
+            const uploadBtn = document.querySelector('.btn');
+            uploadBtn.addEventListener('click', function() {
+                alert('In a real implementation, this would open a file browser to upload your Canva design.');
+            });
+        });
+    </script>
+</body>
+</html>
